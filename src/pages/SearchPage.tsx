@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useMovies } from '../contexts/MovieContext';
 import MovieGrid from '../components/layout/MovieGrid';
-import MovieFilters, { type FilterOptions } from '../components/ui/MovieFilters';
 
 const SearchPage: React.FC = () => {
   const { 
@@ -14,27 +13,15 @@ const SearchPage: React.FC = () => {
     searchMovies
   } = useMovies();
 
-  const [filters, setFilters] = useState<FilterOptions>({
-    genre: '',
-    year: '',
-    minRating: ''
-  });
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    if (searchQuery) {
-      searchMovies(searchQuery, 1, filters);
-    }
-  }, [filters]);
 
   const hasMoreResults = currentPage < totalPages;
 
-  const handleFilterChange = (newFilters: FilterOptions) => {
-    setFilters(newFilters);
-  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-black dark:text-white transition-colors duration-300">
@@ -55,7 +42,6 @@ const SearchPage: React.FC = () => {
           </p>
         )}
 
-        <MovieFilters onFilterChange={handleFilterChange} filters={filters} />
         
         <MovieGrid
           movies={searchResults}
