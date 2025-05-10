@@ -6,9 +6,10 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
+import SearchPage from './pages/SearchPage';
 import MovieDetailsPage from './pages/MovieDetailsPage';
 import FavoritesPage from './pages/FavoritesPage';
-
+import NotFoundPage from './pages/NotFoundPage';
 
 // Protected route wrapper component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -49,6 +50,16 @@ function App() {
                   }
                 />
                 <Route
+                  path="/search"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <SearchPage />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
                   path="/movie/:id"
                   element={
                     <ProtectedRoute>
@@ -66,6 +77,14 @@ function App() {
                         <FavoritesPage />
                       </Layout>
                     </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="*"
+                  element={
+                    <Layout>
+                      <NotFoundPage />
+                    </Layout>
                   }
                 />
               </Routes>
